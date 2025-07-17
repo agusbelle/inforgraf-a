@@ -1,1 +1,1 @@
-# inforgraf-a
+# inforgrafia
