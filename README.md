@@ -1,1 +1,1 @@
-# inforgrafia
+# infografia
