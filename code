@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infografía: Análisis de Clima Laboral con IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .chart-bar {
+            transition: width 0.5s ease-in-out;
+        }
+        /* Estilos para el modal */
+        .modal-backdrop {
+            transition: opacity 0.3s ease;
+        }
+        .modal-content {
+            transition: transform 0.3s ease;
+        }
+        /* Estilo para el loader */
+        .loader {
+            border-top-color: #3498db;
+            -webkit-animation: spin 1s linear infinite;
+            animation: spin 1s linear infinite;
+        }
+        @-webkit-keyframes spin {
+            0% { -webkit-transform: rotate(0deg); }
+            100% { -webkit-transform: rotate(360deg); }
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+
+        /* --- REGLAS DE IMPRESIÓN --- */
+        @media print {
+            /* Oculta todo en la página por defecto */
+            body * {
+                visibility: hidden;
+            }
+            /* Hace visible solo el contenedor de la infografía y su contenido */
+            #infographic-container, #infographic-container * {
+                visibility: visible;
+            }
+            /* Posiciona la infografía para que ocupe toda la página impresa */
+            #infographic-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                margin: 0;
+                padding: 0;
+                border: none;
+                box-shadow: none;
+            }
+            /* Oculta los botones interactivos que no deben aparecer en el PDF */
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-4 sm:p-6 md:p-8">
+    <!-- Se añade un ID al contenedor principal para poder seleccionarlo al imprimir -->
+    <div id="infographic-container" class="max-w-4xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
+       
+        <!-- Header Section -->
+        <header class="bg-gradient-to-r from-blue-600 to-teal-500 p-8 text-white text-center relative">
+            <h1 class="text-3xl md:text-4xl font-bold mb-2">Análisis de Clima Laboral</h1>
+            <p class="text-lg font-light">Resumen de Satisfacción Global (Agosto 2024 - Julio 2025)</p>
+        </header>
+
+
+        <main class="p-8">
+            <!-- Gemini Feature: Executive Summary (con clase no-print) -->
+            <section class="mb-10 p-6 bg-sky-50 rounded-xl border border-sky-200 no-print">
+                <div class="text-center">
+                    <h2 class="text-xl font-bold text-sky-800 mb-3">¿Necesitas un resumen rápido?</h2>
+                    <p class="text-gray-600 mb-4">Usa la IA para generar un resumen ejecutivo de este reporte.</p>
+                    <button id="generateSummaryBtn" class="bg-sky-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-sky-700 transition-colors flex items-center justify-center mx-auto">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        Generar Resumen Ejecutivo ✨
+                    </button>
+                </div>
+            </section>
+
+
+            <!-- Overall Score Section -->
+            <section class="text-center mb-10">
+                <h2 class="text-xl font-semibold text-gray-700 mb-2">Puntuación Promedio General</h2>
+                <div class="inline-flex items-center justify-center bg-teal-100 text-teal-800 rounded-full p-4">
+                    <span class="text-5xl font-bold">9.11</span>
+                    <span class="text-lg ml-2">/ 10</span>
+                </div>
+                <p class="text-gray-500 mt-3 max-w-2xl mx-auto">El promedio general indica un clima laboral robusto y positivo en todas las ubicaciones analizadas.</p>
+            </section>
+
+
+            <!-- Top Performers Section -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">🏆 Ubicaciones Destacadas</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Cards for top performers -->
+                    <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6 text-center shadow-sm hover:shadow-lg transition-shadow">
+                        <span class="text-4xl">🇧🇷</span><h3 class="font-bold text-xl text-green-800 mt-3">Brasil</h3><p class="text-3xl font-bold text-green-600">9.44</p>
+                    </div>
+                    <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6 text-center shadow-sm hover:shadow-lg transition-shadow">
+                        <span class="text-4xl">🇲🇽</span><h3 class="font-bold text-xl text-green-800 mt-3">México</h3><p class="text-3xl font-bold text-green-600">9.43</p>
+                    </div>
+                    <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6 text-center shadow-sm hover:shadow-lg transition-shadow">
+                        <span class="text-4xl">🇵🇹</span><h3 class="font-bold text-xl text-green-800 mt-3">Portugal</h3><p class="text-3xl font-bold text-green-600">9.38</p>
+                    </div>
+                    <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6 text-center shadow-sm hover:shadow-lg transition-shadow">
+                        <span class="text-4xl">🇨🇴</span><h3 class="font-bold text-xl text-green-800 mt-3">Colombia</h3><p class="text-3xl font-bold text-green-600">9.34</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Main Chart Section -->
+            <section class="mb-10">
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">Ranking de Satisfacción por Ubicación</h2>
+                <div class="space-y-4" id="chart-container">
+                    <!-- Chart will be dynamically generated here -->
+                </div>
+            </section>
+           
+            <!-- Key Insights / Areas of Opportunity with Gemini Feature -->
+            <section>
+                <h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">💡 Conclusiones y Plan de Acción</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+                        <h3 class="font-bold text-lg text-blue-800 mb-2">Consistencia es Clave</h3>
+                        <p class="text-gray-600">Ubicaciones como Brasil y Colombia no solo tienen puntuaciones altas, sino también muy consistentes, lo que indica un clima laboral estable y predecible.</p>
+                    </div>
+                    <div class="bg-orange-50 border border-orange-200 rounded-xl p-6 flex flex-col">
+                        <h3 class="font-bold text-lg text-orange-800 mb-2">Áreas de Oportunidad</h3>
+                        <p class="text-gray-600 flex-grow">El personal remoto y el de Argentina presentan las puntuaciones más bajas. Guatemala, a pesar de su alta media, muestra una gran volatilidad que requiere atención.</p>
+                        <!-- Se añade clase no-print al botón -->
+                        <button id="generateActionPlanBtn" class="mt-4 bg-orange-500 text-white font-bold py-2 px-6 rounded-lg hover:bg-orange-600 transition-colors flex items-center justify-center no-print">
+                           <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                           Generar Plan de Acción ✨
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
+        </main>
+       
+        <!-- Footer -->
+        <footer class="bg-gray-800 p-4 text-center text-gray-400 text-sm">
+            <p>Reporte de Clima Laboral | Datos de Agosto 2024 a Julio 2025</p>
+        </footer>
+    </div>
+
+
+    <!-- Modal for Gemini Response (con clase no-print) -->
+    <div id="geminiModal" class="fixed inset-0 bg-black bg-opacity-50 modal-backdrop flex items-center justify-center p-4 hidden no-print" style="opacity: 0;">
+        <div class="bg-white rounded-lg shadow-2xl max-w-2xl w-full modal-content" style="transform: scale(0.95);">
+            <div class="p-6 border-b flex justify-between items-center">
+                <h3 id="modalTitle" class="text-2xl font-bold text-gray-800">Respuesta de la IA</h3>
+                <button id="closeModalBtn" class="text-gray-500 hover:text-gray-800">&times;</button>
+            </div>
+            <div class="p-6">
+                <!-- Loader -->
+                <div id="loader" class="flex justify-center items-center h-40">
+                    <div class="loader ease-linear rounded-full border-8 border-t-8 border-gray-200 h-24 w-24"></div>
+                </div>
+                <!-- Content -->
+                <div id="modalContent" class="prose max-w-none text-gray-700 hidden"></div>
+            </div>
+        </div>
+    </div>
+
+
+    <script type="module">
+        // This is a mock of the Gemini API call for demonstration purposes.
+        // In a real environment, this would be a fetch call to the actual API endpoint.
+        async function callGeminiAPI(prompt) {
+            // Simulate API latency
+            await new Promise(resolve => setTimeout(resolve, 1500));
+
+
+            const apiKey = ""; // The API key is handled by the execution environment.
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+           
+            const payload = {
+                contents: [{
+                    role: "user",
+                    parts: [{ text: prompt }]
+                }]
+            };
+
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+
+                if (!response.ok) {
+                    throw new Error(`API call failed with status: ${response.status}`);
+                }
+
+
+                const result = await response.json();
+               
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    // Basic Markdown to HTML conversion
+                    let text = result.candidates[0].content.parts[0].text;
+                    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // Bold
+                    text = text.replace(/\*(.*?)\*/g, '<em>$1</em>'); // Italics
+                    text = text.replace(/### (.*?)\n/g, '<h3>$1</h3>'); // H3
+                    text = text.replace(/## (.*?)\n/g, '<h2>$1</h2>'); // H2
+                    text = text.replace(/^- (.*?)\n/gm, '<ul><li>$1</li></ul>'); // Naive list
+                    text = text.replace(/<\/ul>\n<ul>/g, ''); // Merge lists
+                    text = text.replace(/\n/g, '<br>'); // Newlines
+                    return text;
+                } else {
+                   return "No se pudo obtener una respuesta válida de la IA. Por favor, inténtalo de nuevo.";
+                }
+            } catch (error) {
+                console.error("Error calling Gemini API:", error);
+                return `Error al contactar la IA: ${error.message}. Revisa la consola para más detalles.`;
+            }
+        }
+
+
+        // --- UI and Event Handling ---
+        const modal = document.getElementById('geminiModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+        const loader = document.getElementById('loader');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+
+
+        function showModal(title) {
+            modalTitle.textContent = title;
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.style.opacity = 1, 10);
+            modal.querySelector('.modal-content').style.transform = 'scale(1)';
+            loader.classList.remove('hidden');
+            modalContent.classList.add('hidden');
+        }
+
+
+        function hideModal() {
+            modal.style.opacity = 0;
+            modal.querySelector('.modal-content').style.transform = 'scale(0.95)';
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+
+        function displayContent(content) {
+            loader.classList.add('hidden');
+            modalContent.innerHTML = content;
+            modalContent.classList.remove('hidden');
+        }
+
+
+        closeModalBtn.addEventListener('click', hideModal);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                hideModal();
+            }
+        });
+
+
+        document.getElementById('generateSummaryBtn').addEventListener('click', async () => {
+            showModal('✨ Resumen Ejecutivo por IA');
+            const prompt = "Eres un analista de recursos humanos. Basado en los siguientes datos de una infografía de clima laboral (Puntuación promedio general: 9.11/10; Ubicaciones destacadas con alta satisfacción: Brasil, México, Portugal; Áreas de oportunidad con baja satisfacción: Personal remoto, Argentina; Área con alta volatilidad: Guatemala), escribe un resumen ejecutivo conciso (máximo 3 párrafos) para la alta dirección. El tono debe ser profesional y directo. Formatea la respuesta en HTML simple.";
+            const summary = await callGeminiAPI(prompt);
+            displayContent(summary);
+        });
+
+
+        document.getElementById('generateActionPlanBtn').addEventListener('click', async () => {
+            showModal('✨ Plan de Acción por IA');
+            const prompt = "Eres un consultor experto en clima laboral. Para las siguientes áreas de oportunidad identificadas en una empresa (1. Personal remoto con baja puntuación de satisfacción. 2. Oficina de Argentina con baja puntuación. 3. Oficina de Guatemala con alta volatilidad en su puntuación), genera un plan de acción. Para cada una de las 3 áreas, proporciona 2 recomendaciones específicas y creativas. Considera las particularidades culturales donde sea relevante (ej. Argentina). El objetivo es mejorar la moral y la estabilidad. Formatea la respuesta usando Markdown (títulos, negritas y listas).";
+            const plan = await callGeminiAPI(prompt);
+            displayContent(plan);
+        });
+       
+        // --- Chart Generation ---
+        document.addEventListener('DOMContentLoaded', function() {
+            const chartData = [
+                { score: 9.44, label: "🇧🇷 Brasil" },
+                { score: 9.43, label: "🇲🇽 México" },
+                { score: 9.38, label: "�🇹 Portugal" },
+                { score: 9.34, label: "🇨🇴 Colombia" },
+                { score: 9.31, label: "🇬🇹 Guatemala" },
+                { score: 9.16, label: "🇮🇳 India" },
+                { score: 9.02, label: "🇺🇸 USA" },
+                { score: 8.99, label: "🇺🇦 Ucrania" },
+                { score: 8.99, label: "🇵🇱 Polonia" },
+                { score: 8.68, label: "🇦🇷 Argentina" },
+                { score: 8.40, label: "💻 Remoto" }
+            ];
+            const chartContainer = document.getElementById('chart-container');
+
+
+            chartData.forEach(item => {
+                const score = item.score;
+                const label = item.label;
+                const widthPercentage = (score / 10) * 100;
+
+
+                const barContainer = document.createElement('div');
+                barContainer.className = 'flex items-center mb-2';
+
+
+                const labelElement = document.createElement('div');
+                labelElement.className = 'w-1/4 text-right pr-4 text-gray-600 font-medium';
+                labelElement.textContent = label;
+
+
+                const barWrapper = document.createElement('div');
+                barWrapper.className = 'w-3/4 bg-gray-200 rounded-full h-6 overflow-hidden';
+
+
+                const bar = document.createElement('div');
+                bar.className = 'chart-bar bg-gradient-to-r h-6 rounded-full flex items-center justify-end pr-3 text-white font-bold';
+               
+                if (score >= 9.3) {
+                    bar.classList.add('from-green-500', 'to-green-400');
+                } else if (score >= 9.0) {
+                    bar.classList.add('from-blue-500', 'to-teal-400');
+                } else if (score >= 8.5) {
+                    bar.classList.add('from-yellow-500', 'to-yellow-400');
+                } else {
+                    bar.classList.add('from-orange-500', 'to-red-400');
+                }
+               
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = `${widthPercentage}%`;
+                }, 100);
+
+
+                const scoreText = document.createElement('span');
+                scoreText.textContent = score.toFixed(2);
+               
+                bar.appendChild(scoreText);
+                barWrapper.appendChild(bar);
+                barContainer.appendChild(labelElement);
+                barContainer.appendChild(barWrapper);
+               
+                chartContainer.appendChild(barContainer);
+            });
+        });
+    </script>
+</body>
+</html>
